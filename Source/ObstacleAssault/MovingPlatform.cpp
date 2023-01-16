@@ -20,20 +20,19 @@ void AMovingPlatform::BeginPlay()
 {
 	Super::BeginPlay();
 
-	x = coolVector.X;
-
-	coolVector.X = 69;
-	coolVector.Z = 24;
-
 	doStuff();
 
-	SetActorLocation(FVector(-10000, -2500, 5000));
+	coolVector = GetActorLocation();
 }
 
 // Called every frame
 void AMovingPlatform::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	coolVector.Y -= 3;
+	coolVector.Z += 2;
+	SetActorLocation(coolVector);
 
 }
 
