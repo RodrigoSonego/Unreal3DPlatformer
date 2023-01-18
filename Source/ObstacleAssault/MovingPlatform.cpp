@@ -32,15 +32,15 @@ void AMovingPlatform::Tick(float DeltaTime)
 
 	timePassed += DeltaTime;
 
-	if (timePassed >= 2) {
+	if (timePassed >= maxMoveTime) {
 		movingRight = !movingRight;
 		timePassed = 0;
 	}
 
 	if (movingRight) {
-		location.Y += 2;
+		location += platformVelocity * DeltaTime;
 	} else {
-		location.Y -= 2;
+		location -= platformVelocity * DeltaTime;
 	}
 
 	SetActorLocation(location);

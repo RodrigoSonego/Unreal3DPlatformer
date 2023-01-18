@@ -24,8 +24,10 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditAnywhere, Category="MovingPlatform")
-	
+	FVector platformVelocity = FVector(0, 2, 0);
 
+	UPROPERTY(EditAnywhere, Category="MovingPlatform")
+	float maxMoveTime = 2;
 
 	float timePassed = 0;
 
