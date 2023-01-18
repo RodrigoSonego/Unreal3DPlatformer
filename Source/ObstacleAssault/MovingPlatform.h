@@ -30,6 +30,4 @@ public:
 	float maxMoveDistance = 1000;
 
 	FVector startLocation;
-
-	bool movingRight = true;
 };
