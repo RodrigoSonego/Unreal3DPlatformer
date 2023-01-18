@@ -21,6 +21,8 @@ void AMovingPlatform::BeginPlay()
 	Super::BeginPlay();
 
 	doStuff();
+
+	startLocation = GetActorLocation();
 }
 
 // Called every frame
@@ -30,11 +32,11 @@ void AMovingPlatform::Tick(float DeltaTime)
 
 	FVector location = GetActorLocation();
 
-	timePassed += DeltaTime;
+	float distance = FVector::Distance(location, startLocation);
 
-	if (timePassed >= maxMoveTime) {
+	if (distance >= maxMoveDistance) {
 		movingRight = !movingRight;
-		timePassed = 0;
+		startLocation = location;
 	}
 
 	if (movingRight) {

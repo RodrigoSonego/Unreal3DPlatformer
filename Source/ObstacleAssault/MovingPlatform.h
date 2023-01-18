@@ -27,9 +27,9 @@ public:
 	FVector platformVelocity = FVector(0, 2, 0);
 
 	UPROPERTY(EditAnywhere, Category="MovingPlatform")
-	float maxMoveTime = 2;
+	float maxMoveDistance = 1000;
 
-	float timePassed = 0;
+	FVector startLocation;
 
 	bool movingRight = true;
 };
