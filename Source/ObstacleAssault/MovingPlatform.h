@@ -23,9 +23,11 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(EditAnywhere)
-	FVector coolVector = FVector(1, 2, 3);
+	UPROPERTY(EditAnywhere, Category="MovingPlatform")
+	
 
-	UPROPERTY(EditAnywhere)
-	float x;
+
+	float timePassed = 0;
+
+	bool movingRight = true;
 };

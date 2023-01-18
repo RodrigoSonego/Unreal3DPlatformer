@@ -21,8 +21,6 @@ void AMovingPlatform::BeginPlay()
 	Super::BeginPlay();
 
 	doStuff();
-
-	coolVector = GetActorLocation();
 }
 
 // Called every frame
@@ -30,10 +28,21 @@ void AMovingPlatform::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	coolVector.Y -= 3;
-	coolVector.Z += 2;
-	SetActorLocation(coolVector);
+	FVector location = GetActorLocation();
+
+	timePassed += DeltaTime;
+
+	if (timePassed >= 2) {
+		movingRight = !movingRight;
+		timePassed = 0;
+	}
+
+	if (movingRight) {
+		location.Y += 2;
+	} else {
+		location.Y -= 2;
+	}
+
+	SetActorLocation(location);
 
 }
-
-
