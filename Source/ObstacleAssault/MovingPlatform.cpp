@@ -22,6 +22,10 @@ void AMovingPlatform::BeginPlay()
 
 	doStuff();
 
+	FString name = GetName();
+
+	UE_LOG(LogTemp, Display, TEXT("BeginPlay on %s"), *name);
+
 	startLocation = GetActorLocation();
 }
 
@@ -30,11 +34,13 @@ void AMovingPlatform::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	FVector location = GetActorLocation();
+	MovePlatform(DeltaTime);
+	RotatePlatform(DeltaTime);
+}
 
-	float distance = FVector::Distance(location, startLocation);
-	
-	if (distance >= maxMoveDistance) {
+void AMovingPlatform::MovePlatform(float deltaTime) 
+{
+	if (HasPlatformReachedMaxDistance()) {
 		FVector moveDirection = platformVelocity.GetSafeNormal();
 		startLocation += moveDirection * maxMoveDistance;
 		SetActorLocation(startLocation);
@@ -42,8 +48,21 @@ void AMovingPlatform::Tick(float DeltaTime)
 		platformVelocity = -platformVelocity;
 	}
 
-	location += platformVelocity * DeltaTime;
+	FVector location = GetActorLocation();
+	location += platformVelocity * deltaTime;
 
 	SetActorLocation(location);
+}
 
+void AMovingPlatform::RotatePlatform(float deltaTime)
+{
+	AddActorLocalRotation(rotationVelocity * deltaTime);
+}
+
+bool AMovingPlatform::HasPlatformReachedMaxDistance() const
+{
+	FVector currentLocation = GetActorLocation();
+	float distance = FVector::Distance(currentLocation, startLocation);
+
+	return distance >= maxMoveDistance;
 }
